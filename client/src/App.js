@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:3001/get")
+    axios.get("/backend/get")
       .then((response) => {
         this.setState({
           fetchData: response.data
@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   submit = () => {
-    axios.post('http://localhost:3001/insert', this.state)
+    axios.post('/backend/insert', this.state)
       .then(() => { alert('success post') })
     console.log(this.state)
     document.location.reload();
@@ -48,13 +48,13 @@ class App extends Component {
 
   delete = (id) => {
     if (confirm("Do you want to delete? ")) {
-      axios.delete(`http://localhost:3001/delete/${id}`)
+      axios.delete(`/backend/delete/${id}`)
       document.location.reload()
     }
   }
 
   edit = (id) => {
-    axios.put(`http://localhost:3001/update/${id}`, this.state)
+    axios.put(`/backend/update/${id}`, this.state)
     document.location.reload();
   }
   render() {

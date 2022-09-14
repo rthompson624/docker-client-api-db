@@ -7,6 +7,17 @@ x-common-variables:
   MYSQL_PASSWORD: MYSQL_PASSWORD
 
 services:
+  nginx:
+    depends_on:
+      - client
+      - backend
+    restart: always # because it is routing traffic to our entire app
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "80:80"
+
   mysql_db:
     image: mysql
     restart: always
@@ -21,15 +32,15 @@ services:
       MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
       MYSQL_HOST: localhost
 
-  api:
+  backend:
     build:
       dockerfile: Dockerfile
-      context: "./server"
+      context: "./backend"
     depends_on:
       - mysql_db
     volumes:
       - /app/node_modules
-      - ./server:/app
+      - ./backend:/app
     ports:
       - "3001:3001"
     environment:
@@ -46,14 +57,14 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
-    ports:
-      - "80:80"
+    #ports:
+    #  - "3000:3000"
 
   adminer:
     image: adminer:latest
     restart: unless-stopped
     ports:
-      - 8000:8080
+      - "8000:8080"
     depends_on:
       - mysql_db
     environment:
