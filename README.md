@@ -1,9 +1,34 @@
-# Instructions
+# General
 
-Run `docker compose up --build` inside the main project directory
+After starting application (see instructions below), navigate to `http://localhost/`.
 
-Access the MySQL admin tool with `http://localhost:8000/`.
+MySQL admin tool at `http://localhost:8000/`.  To log in, use `mysql_db` as the server, `root` as the user, and `MYSQL_ROOT_PASSWORD` for the password.
 
-To log in, use `mysql_db` as the server Username as `root` and password as `MYSQL_ROOT_PASSWORD`.
+# Dev Environment
 
-To start interacting with the application, open `http://localhost/` on a browser.
+To start local dev environment
+```
+docker compose -f docker-compose.dev.yml up --build
+```
+
+Delete all containers.
+```
+docker rm $(docker ps -a -q)
+```
+
+Delete all volumes.
+```
+docker volume rm $(docker volume ls -q)
+```
+
+Delete all images.
+```
+docker image rm $(docker images -a -q)
+```
+
+# Prod Environment
+
+To start environment in prod mode
+```
+docker compose up --build
+```

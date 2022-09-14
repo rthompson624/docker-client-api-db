@@ -42,8 +42,11 @@ services:
       MYSQL_HOST_IP: mysql_db
 
   client:
+    environment:
+      # This is for using React development server so that recompilation occurs on file changes
+      - CHOKIDAR_USEPOLLING=true
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./client
     volumes:
       - /app/node_modules
