@@ -11,18 +11,10 @@ To start local dev environment
 docker compose -f docker-compose.dev.yml up --build
 ```
 
-Delete all containers.
+To delete all containers, volumes, and images.
 ```
 docker rm $(docker ps -a -q)
-```
-
-Delete all volumes.
-```
 docker volume rm $(docker volume ls -q)
-```
-
-Delete all images.
-```
 docker image rm $(docker images -a -q)
 ```
 
